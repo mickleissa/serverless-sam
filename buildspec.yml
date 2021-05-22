@@ -1,16 +1,18 @@
-version: 0.0
-environment_variables:
-    plaintext:
-        "INPUT_FILE": "saml.yaml"
+version: 0.2
+env:
+  variables:
+    INPUT_FILE: "saml.yaml"
         "S3_BUCKET": ""
-containers:
-    LambdaFunctions:
-        phases:
-            during_build:
-                commands:
-                    - npm install -g n
-                    - aws cloudformation package --template $INPUT_FILE --s3-bucket $S3_BUCKET --output-template post-saml.yaml
-        artifacts:
-            files:
-                - post-saml.yaml
-                - beta.json
+     phases:
+       install:
+         runtime-versions:
+           nodejs: 10
+         commands:
+           - npm install
+       build:
+         commands:
+           - aws cloudformation package --template $INPUT_FILE --s3-bucket $S3_BUCKET --output-template post-saml.yaml
+      artifacts:
+          files:
+              - post-saml.yaml
+              - beta.json
