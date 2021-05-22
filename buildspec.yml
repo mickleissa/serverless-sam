@@ -1,7 +1,7 @@
 version: 0.2
 env:
   variables:
-    INPUT_FILE: "serverless.yml"
+    INPUT_FILE: "saml.ymal"
     S3_BUCKET: ""
 phases:
   install:
